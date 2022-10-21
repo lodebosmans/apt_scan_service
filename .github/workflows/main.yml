@@ -30,13 +30,13 @@ jobs:
         run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Docker Build
-        run: docker build -t ${{ secrets.DOCKER_USER }}/apt_car_service:latest .
+        run: docker build -t ${{ secrets.DOCKER_USER }}/apt_scan_service:latest .
 
       - name: Upload container to Docker Hub with Push
-        run: docker push ${{ secrets.DOCKER_USER }}/apt_car_service:latest
+        run: docker push ${{ secrets.DOCKER_USER }}/apt_scan_service:latest
         
       - name: Upload Maven build artifact
         uses: actions/upload-artifact@v1
         with:
           name: artifact
-          path: ./target/car-properties-service-0.0.1-SNAPSHOT.jar
+          path: ./target/apt_scan_service-0.0.1-SNAPSHOT.jar
