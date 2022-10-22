@@ -54,7 +54,6 @@ public class ScanController {
     public Scan addScan(@RequestBody Scan scan){
 
         scanRepository.save(scan);
-
         return scan;
     }
 
