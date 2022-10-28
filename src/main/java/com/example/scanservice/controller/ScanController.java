@@ -24,10 +24,8 @@ public class ScanController {
             scanRepository.save(new Scan("Lode", "Traktor",2));
             scanRepository.save(new Scan("Johnny", "Lamborghini",5));
             scanRepository.save(new Scan("Lode", "Volkswagen Golf",3));
-
         }
-
-        System.out.println("Scans test: " + scanRepository.findScansByUserName("Lode").size());
+//        System.out.println("Scans test: " + scanRepository.findScansByUserName("Lode").size());
     }
 
     @GetMapping("/scans/user/{userName}")
