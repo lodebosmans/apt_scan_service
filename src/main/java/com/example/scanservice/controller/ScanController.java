@@ -23,11 +23,12 @@ class ScanDto {
     }
     public Integer getScoreNumber() {
         return scoreNumber;
+    }
 }
 
 @RestController
 public class ScanController {
-
+    
     @Autowired
     private ScanRepository scanRepository;
 
