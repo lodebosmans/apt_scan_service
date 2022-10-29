@@ -6,7 +6,6 @@ import javax.annotation.PostConstruct;
 import java.util.List;
 import com.example.scanservice.model.Scan;
 import com.example.scanservice.repository.ScanRepository;
-import org.springframework.data.annotation.Id;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -61,14 +60,7 @@ public class ScanController {
     public List<Scan> getScans(){
         return scanRepository.findAll();
     }
-
-//    @PostMapping("/scans")
-//    public Scan addScan(@RequestBody Scan scan){
-//
-//        scanRepository.save(scan);
-//        return scan;
-//    }
-
+    
     @PostMapping("/scans")
     @ResponseBody
     public Scan addScan(@RequestBody ScanDto scanDto){
