@@ -1,5 +1,6 @@
 package com.example.scanservice.controller;
 
+import com.example.scanservice.model.ScanDto;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
@@ -46,12 +47,41 @@ public class ScanController {
         return scanRepository.findAll();
     }
 
-    @PostMapping("/scans")
-    public Scan addScan(@RequestBody Scan scan){
+//    @PostMapping("/scans")
+//    public Scan addScan(@RequestBody Scan scan){
+//
+//        scanRepository.save(scan);
+//        return scan;
+//    }
 
-        scanRepository.save(scan);
-        return scan;
+    @PostMapping("/scans")
+    public Scan addScan(@RequestBody ScanDto scanDto){
+
+        Scan newScan = new Scan(scanDto.getUserName(),scanDto.getCarBrand(),scanDto.getScoreNumber());
+
+        scanRepository.save(newScan);
+        return newScan;
     }
+
+//    @RequestMapping(path = "/saveForLater", method = RequestMethod.POST)
+//    public String saveForLater(Wish wish) {
+//        session.save(wish);
+//    }
+//
+//    @RequestMapping(path = "/saveForLater", method = RequestMethod.POST)
+//    public String saveForLater(WishDTO wish) {
+//        Wish persistentWish = new Wish();
+//        // do the mapping between "wish" and "persistentWish"
+//    [...]
+//        session.save(persistentWish);
+//    }
+
+
+
+
+
+
+
 
     @PutMapping("/scans")
     public Scan updateScan(@RequestBody Scan updatedScan){
