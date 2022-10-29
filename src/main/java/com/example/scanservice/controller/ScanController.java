@@ -60,7 +60,7 @@ public class ScanController {
     public List<Scan> getScans(){
         return scanRepository.findAll();
     }
-    
+
     @PostMapping("/scans")
     @ResponseBody
     public Scan addScan(@RequestBody ScanDto scanDto){

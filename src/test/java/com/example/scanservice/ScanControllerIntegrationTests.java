@@ -31,7 +31,8 @@ class ScanControllerIntegrationTests {
 
     private Scan scanUser1Car1 = new Scan("Lode", "Traktor", 1);
     private Scan scanUser1Car2 = new Scan("Lode", "Tesla", 2);
-    private Scan scanUser2Car1 = new Scan("Johnny", "Lamborghini", 3);
+    private Scan scanUser2Car1 = new Scan("Johnny", "Traktor", 3);
+
     private Scan scanToBeDeleted = new Scan("Michiel", "Tesla", 4);
 
     @BeforeEach
@@ -103,7 +104,7 @@ class ScanControllerIntegrationTests {
                 .andExpect(jsonPath("$[1].carBrand",is("Tesla")))
                 .andExpect(jsonPath("$[1].scoreNumber",is(2)))
                 .andExpect(jsonPath("$[2].userName",is("Johnny")))
-                .andExpect(jsonPath("$[2].carBrand",is("Lamborghini")))
+                .andExpect(jsonPath("$[2].carBrand",is("Traktor")))
                 .andExpect(jsonPath("$[2].scoreNumber",is(3)))
                 .andExpect(jsonPath("$[3].userName",is("Michiel")))
                 .andExpect(jsonPath("$[3].carBrand",is("Tesla")))
@@ -125,10 +126,10 @@ class ScanControllerIntegrationTests {
 
     @Test
     void givenScan_whenPutScan_thenReturnJsonScan() throws Exception{
-        Scan updatedReview = new Scan("Lode","Traktor",2);
+        Scan updatedScan = new Scan("Lode","Traktor",2);
 
         mockMvc.perform(put("/scans")
-                        .content(mapper.writeValueAsString(updatedReview))
+                        .content(mapper.writeValueAsString(updatedScan))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -151,116 +152,22 @@ class ScanControllerIntegrationTests {
                 .andExpect(status().isNotFound());
     }
 
+    // Extra test because of the DTo scan
+    @Test
+    void givenScan_whenUpdateUserNameScan_thenReturnJsonScan() throws Exception{
+        Scan updatedScan = new Scan("Lode", "Traktor", 1);
 
+        updatedScan.setUserName("Johnny");
 
+        mockMvc.perform(put("/scans")
+                        .content(mapper.writeValueAsString(updatedScan))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.userName",is("Johnny")))
+                .andExpect(jsonPath("$.carBrand",is("Traktor")))
+                .andExpect(jsonPath("$.scoreNumber",is(1)));
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//    @Test
-//    public void givenScan_whenGetScanByUserNameAndISBN_thenReturnJsonScan() throws Exception {
-//
-//        mockMvc.perform(get("/scans/user/{userId}/book/{ISBN}", 001, "ISBN1"))
-//                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$.userId", is(001)))
-//                .andExpect(jsonPath("$.isbn", is("ISBN1")))
-//                .andExpect(jsonPath("$.scoreNumber", is(1)));
-//    }
-//
-//    @Test
-//    public void givenScan_whenGetScansByISBN_thenReturnJsonScans() throws Exception {
-//
-//        List<Scan> scanList = new ArrayList<>();
-//        scanList.add(scanUser1Car1);
-//        scanList.add(scanUser2Car1);
-//
-//        mockMvc.perform(get("/scans/{ISBN}", "ISBN1"))
-//                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$", hasSize(2)))
-//                .andExpect(jsonPath("$[0].userId", is(001)))
-//                .andExpect(jsonPath("$[0].isbn", is("ISBN1")))
-//                .andExpect(jsonPath("$[0].scoreNumber", is(1)))
-//                .andExpect(jsonPath("$[1].userId", is(002)))
-//                .andExpect(jsonPath("$[1].isbn", is("ISBN1")))
-//                .andExpect(jsonPath("$[1].scoreNumber", is(2)));
-//    }
-//
-//    @Test
-//    public void givenScan_whenGetScansByUserName_thenReturnJsonScans() throws Exception {
-//
-//        List<Scan> scanList = new ArrayList<>();
-//        scanList.add(scanUser1Car1);
-//        scanList.add(scanUser1Car2);
-//
-//        mockMvc.perform(get("/scans/user/{userId}", 001))
-//                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$", hasSize(2)))
-//                .andExpect(jsonPath("$[0].userId", is(001)))
-//                .andExpect(jsonPath("$[0].isbn", is("ISBN1")))
-//                .andExpect(jsonPath("$[0].scoreNumber", is(1)))
-//                .andExpect(jsonPath("$[1].userId", is(001)))
-//                .andExpect(jsonPath("$[1].isbn", is("ISBN2")))
-//                .andExpect(jsonPath("$[1].scoreNumber", is(2)));
-//    }
-//
-//    @Test
-//    public void whenPostScan_thenReturnJsonScan() throws Exception {
-//        Scan scanUser3Car1 = new Scan(003, "ISBN1", 1);
-//
-//        mockMvc.perform(post("/scans")
-//                        .content(mapper.writeValueAsString(scanUser3Car1))
-//                        .contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$.userId", is(003)))
-//                .andExpect(jsonPath("$.isbn", is("ISBN1")))
-//                .andExpect(jsonPath("$.scoreNumber", is(1)));
-//    }
-//
-//    @Test
-//    public void givenScan_whenPutScan_thenReturnJsonScan() throws Exception {
-//
-//        Scan updatedScan = new Scan(001, "ISBN1", 2);
-//
-//        mockMvc.perform(put("/scans")
-//                        .content(mapper.writeValueAsString(updatedScan))
-//                        .contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$.userId", is(001)))
-//                .andExpect(jsonPath("$.isbn", is("ISBN1")))
-//                .andExpect(jsonPath("$.scoreNumber", is(2)));
-//    }
-//
-//    @Test
-//    public void givenScan_whenDeleteScan_thenStatusOk() throws Exception {
-//
-//        mockMvc.perform(delete("/scans/user/{userId}/book/{ISBN}", 999, "ISBN9")
-//                        .contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isOk());
-//    }
-//
-//    @Test
-//    public void givenNoScan_whenDeleteScan_thenStatusNotFound() throws Exception {
-//
-//        mockMvc.perform(delete("/scans/user/{userId}/book/{ISBN}", 888, "ISBN8")
-//                        .contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isNotFound());
-//    }
 
 }

@@ -168,4 +168,26 @@ class ScanControllerUnitTests {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
+
+    // Extra test because of the DTO scan
+    @Test
+    void givenNewScanIsPut_thenReturnJsonScan() throws Exception{
+        Scan newScan = new Scan();
+        newScan.setUserName("Michael");
+        newScan.setCarBrand("Audi A4");
+        newScan.setScoreNumber(4);
+
+        given(scanRepository.findScanByUserNameAndAndCarBrand("Michael","Audi A4")).willReturn(newScan);
+
+        Scan updatedReview = new Scan("Michael","Audi A4",5);
+
+        mockMvc.perform(put("/scans")
+                        .content(mapper.writeValueAsString(updatedReview))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.userName",is("Michael")))
+                .andExpect(jsonPath("$.carBrand",is("Audi A4")))
+                .andExpect(jsonPath("$.scoreNumber",is(5)));
+    }
 }
