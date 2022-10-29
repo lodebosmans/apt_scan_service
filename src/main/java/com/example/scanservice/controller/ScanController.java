@@ -28,7 +28,7 @@ class ScanDto {
 
 @RestController
 public class ScanController {
-    
+
     @Autowired
     private ScanRepository scanRepository;
 
@@ -79,28 +79,8 @@ public class ScanController {
         return newScan;
     }
 
-//    @RequestMapping(path = "/saveForLater", method = RequestMethod.POST)
-//    public String saveForLater(Wish wish) {
-//        session.save(wish);
-//    }
-//
-//    @RequestMapping(path = "/saveForLater", method = RequestMethod.POST)
-//    public String saveForLater(WishDTO wish) {
-//        Wish persistentWish = new Wish();
-//        // do the mapping between "wish" and "persistentWish"
-//    [...]
-//        session.save(persistentWish);
-//    }
-
-
-
-
-
-
-
-
     @PutMapping("/scans")
-    public Scan updateScan(@RequestBody Scan updatedScan){
+    public Scan updateScan(@RequestBody ScanDto updatedScan){
         Scan retrievedScan = scanRepository.findScanByUserNameAndAndCarBrand(updatedScan.getUserName(),updatedScan.getCarBrand());
 
         retrievedScan.setCarBrand(updatedScan.getCarBrand());
