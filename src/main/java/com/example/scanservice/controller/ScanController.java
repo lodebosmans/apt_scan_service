@@ -1,15 +1,29 @@
 package com.example.scanservice.controller;
 
-import com.example.scanservice.model.ScanDto;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
 import com.example.scanservice.model.Scan;
 import com.example.scanservice.repository.ScanRepository;
+import org.springframework.data.annotation.Id;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+class ScanDto {
+    private String userName;
+    private String carBrand;
+    private Integer scoreNumber;
+
+    public String getUserName() {
+        return userName;
+    }
+    public String getCarBrand() {
+        return carBrand;
+    }
+    public Integer getScoreNumber() {
+        return scoreNumber;
+}
 
 @RestController
 public class ScanController {
