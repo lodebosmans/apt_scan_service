@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class ScanControllerIntegrationTests {
+class ScanControllerIntegrationTests {
 
     @Autowired
     private MockMvc mockMvc;
@@ -53,7 +53,7 @@ public class ScanControllerIntegrationTests {
 
 
     @Test
-    public void givenScan_whenGetScansByUserName_thenReturnJsonScans() throws Exception {
+    void givenScan_whenGetScansByUserName_thenReturnJsonScans() throws Exception {
         mockMvc.perform(get("/scans/user/{userName}","Lode"))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -67,7 +67,7 @@ public class ScanControllerIntegrationTests {
     }
 
     @Test
-    public void givenScan_whenGetScansByCarBrand_thenReturnJsonScans() throws Exception {
+    void givenScan_whenGetScansByCarBrand_thenReturnJsonScans() throws Exception {
         mockMvc.perform(get("/scans/{carBrand}","Tesla"))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -81,7 +81,7 @@ public class ScanControllerIntegrationTests {
     }
 
     @Test
-    public void givenScan_whenGetScanByUserNameAndCarBrand_thenReturnJsonScan() throws Exception {
+    void givenScan_whenGetScanByUserNameAndCarBrand_thenReturnJsonScan() throws Exception {
         mockMvc.perform(get("/scans/user/{userName}/car/{carBrand}","Lode","Tesla"))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -91,7 +91,7 @@ public class ScanControllerIntegrationTests {
     }
 
     @Test
-    public void givenScan_whenGetScans_thenReturnJsonScans() throws Exception {
+    void givenScan_whenGetScans_thenReturnJsonScans() throws Exception {
         mockMvc.perform(get("/scans"))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -112,7 +112,7 @@ public class ScanControllerIntegrationTests {
 
 
     @Test
-    public void whenPostScan_thenReturnJsonScan() throws Exception{
+    void whenPostScan_thenReturnJsonScan() throws Exception{
         mockMvc.perform(post("/scans")
                         .content(mapper.writeValueAsString(scanUser1Car1))
                         .contentType(MediaType.APPLICATION_JSON))
@@ -124,7 +124,7 @@ public class ScanControllerIntegrationTests {
     }
 
     @Test
-    public void givenScan_whenPutScan_thenReturnJsonScan() throws Exception{
+    void givenScan_whenPutScan_thenReturnJsonScan() throws Exception{
         Scan updatedReview = new Scan("Lode","Traktor",2);
 
         mockMvc.perform(put("/scans")
@@ -138,14 +138,14 @@ public class ScanControllerIntegrationTests {
     }
 
     @Test
-    public void givenScan_whenDeleteScan_thenStatusOk() throws Exception{
+    void givenScan_whenDeleteScan_thenStatusOk() throws Exception{
         mockMvc.perform(delete("/scans/user/{userName}/car/{carBrand}","Michiel","Tesla")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
     @Test
-    public void givenNoScan_whenDeleteScan_thenStatusNotFound() throws Exception{
+    void givenNoScan_whenDeleteScan_thenStatusNotFound() throws Exception{
         mockMvc.perform(delete("/scans/user/{userName}/car/{carBrand}","Michiel","Volvo")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());

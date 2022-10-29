@@ -9,6 +9,5 @@ import com.example.scanservice.model.Scan;
 public interface ScanRepository extends MongoRepository<Scan, String> {
     List<Scan> findScansByUserName(String userName);
     List<Scan> findScansByCarBrand(String carBrand);
-//    List<Scan> findAll();
     Scan findScanByUserNameAndAndCarBrand(String userName, String carBrand);
 }

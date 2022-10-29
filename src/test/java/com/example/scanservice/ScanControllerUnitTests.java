@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class ScanControllerUnitTests {
+class ScanControllerUnitTests {
 
     @Autowired
     private MockMvc mockMvc;
@@ -33,7 +33,7 @@ public class ScanControllerUnitTests {
     private ObjectMapper mapper = new ObjectMapper();
 
     @Test
-    public void givenScan_whenGetScansByUserName_thenReturnJsonScans() throws Exception {
+    void givenScan_whenGetScansByUserName_thenReturnJsonScans() throws Exception {
         Scan scanUser1Car1 = new Scan("Lode","Audi A4",5);
         Scan scanUser1Car2 = new Scan("Lode","Tesla",3);
 
@@ -56,7 +56,7 @@ public class ScanControllerUnitTests {
     }
 
     @Test
-    public void givenScan_whenGetScansByCarBrand_thenReturnJsonScans() throws Exception {
+    void givenScan_whenGetScansByCarBrand_thenReturnJsonScans() throws Exception {
         Scan scanUser1Car1 = new Scan("Lode","Tesla",5);
         Scan scanUser1Car2 = new Scan("Johnny","Tesla",3);
 
@@ -79,7 +79,7 @@ public class ScanControllerUnitTests {
     }
 
     @Test
-    public void givenScan_whenGetScanByUserNameAndCarBrand_thenReturnJsonScan() throws Exception {
+    void givenScan_whenGetScanByUserNameAndCarBrand_thenReturnJsonScan() throws Exception {
         Scan scanUser1Car1 = new Scan("Lode","Tesla",3);
 
         given(scanRepository.findScanByUserNameAndAndCarBrand("Lode","Tesla")).willReturn(scanUser1Car1);
@@ -93,7 +93,7 @@ public class ScanControllerUnitTests {
     }
 
     @Test
-    public void givenScan_whenGetScans_thenReturnJsonScans() throws Exception {
+    void givenScan_whenGetScans_thenReturnJsonScans() throws Exception {
         Scan scanUser1Car1 = new Scan("Lode","Tesla",5);
         Scan scanUser1Car2 = new Scan("Johnny","Tesla",3);
 
@@ -118,7 +118,7 @@ public class ScanControllerUnitTests {
 
 
     @Test
-    public void whenPostScan_thenReturnJsonScan() throws Exception{
+    void whenPostScan_thenReturnJsonScan() throws Exception{
         Scan ScanUser3Car1 = new Scan("Michael","Audi A4",4);
 
         mockMvc.perform(post("/scans")
@@ -132,7 +132,7 @@ public class ScanControllerUnitTests {
     }
 
     @Test
-    public void givenScan_whenPutScan_thenReturnJsonScan() throws Exception{
+    void givenScan_whenPutScan_thenReturnJsonScan() throws Exception{
         Scan ScanUser3Car1 = new Scan("Michael","Audi A4",4);
 
         given(scanRepository.findScanByUserNameAndAndCarBrand("Michael","Audi A4")).willReturn(ScanUser3Car1);
@@ -150,7 +150,7 @@ public class ScanControllerUnitTests {
     }
 
     @Test
-    public void givenScan_whenDeleteScan_thenStatusOk() throws Exception{
+    void givenScan_whenDeleteScan_thenStatusOk() throws Exception{
         Scan ScanUser3Car1 = new Scan("Michael","Audi A4",4);
 
         given(scanRepository.findScanByUserNameAndAndCarBrand("Michael","Audi A4")).willReturn(ScanUser3Car1);
@@ -161,7 +161,7 @@ public class ScanControllerUnitTests {
     }
 
     @Test
-    public void givenNoScan_whenDeleteScan_thenStatusNotFound() throws Exception{
+    void givenNoScan_whenDeleteScan_thenStatusNotFound() throws Exception{
         given(scanRepository.findScanByUserNameAndAndCarBrand("Lode","Volvo")).willReturn(null);
 
         mockMvc.perform(delete("/scans/user/{userName}/car/{carBrand}","Lode","Volvo")

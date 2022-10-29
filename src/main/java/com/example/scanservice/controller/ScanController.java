@@ -6,7 +6,6 @@ import javax.annotation.PostConstruct;
 import java.util.List;
 import com.example.scanservice.model.Scan;
 import com.example.scanservice.repository.ScanRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,7 +24,6 @@ public class ScanController {
             scanRepository.save(new Scan("Johnny", "Lamborghini",5));
             scanRepository.save(new Scan("Lode", "Volkswagen Golf",3));
         }
-//        System.out.println("Scans test: " + scanRepository.findScansByUserName("Lode").size());
     }
 
     @GetMapping("/scans/user/{userName}")
@@ -68,7 +66,7 @@ public class ScanController {
     }
 
     @DeleteMapping("/scans/user/{userName}/car/{carBrand}")
-    public ResponseEntity deleteScan(@PathVariable String userName, @PathVariable String carBrand){
+    public <T> ResponseEntity<T> deleteScan(@PathVariable String userName, @PathVariable String carBrand){
         Scan scan = scanRepository.findScanByUserNameAndAndCarBrand(userName, carBrand);
         if(scan!=null){
             scanRepository.delete(scan);
