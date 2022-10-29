@@ -55,6 +55,7 @@ public class ScanController {
 //    }
 
     @PostMapping("/scans")
+    @ResponseBody
     public Scan addScan(@RequestBody ScanDto scanDto){
 
         Scan newScan = new Scan(scanDto.getUserName(),scanDto.getCarBrand(),scanDto.getScoreNumber());
