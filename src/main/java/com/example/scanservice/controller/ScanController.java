@@ -37,7 +37,7 @@ public class ScanController {
             scanRepository.save(new Scan("Lode", "Audi",5));
             scanRepository.save(new Scan("Lode", "Traktor",2));
             scanRepository.save(new Scan("Johnny", "Lamborghini",5));
-            scanRepository.save(new Scan("Lode", "Volkswagen Golf",3));
+            scanRepository.save(new Scan("Lode", "Volkswagen",3));
         }
     }
 
