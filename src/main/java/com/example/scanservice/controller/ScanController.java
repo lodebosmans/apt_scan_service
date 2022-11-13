@@ -34,7 +34,7 @@ public class ScanController {
     @PostConstruct
     public void fillDB(){
         if(scanRepository.count()==0){
-            scanRepository.save(new Scan("Lode", "Audi A4",5));
+            scanRepository.save(new Scan("Lode", "Audi",5));
             scanRepository.save(new Scan("Lode", "Traktor",2));
             scanRepository.save(new Scan("Johnny", "Lamborghini",5));
             scanRepository.save(new Scan("Lode", "Volkswagen Golf",3));
