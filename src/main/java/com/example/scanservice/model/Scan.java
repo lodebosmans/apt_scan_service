@@ -15,17 +15,17 @@ public class Scan {
     }
 
     public Scan(String userName, String carBrand, Integer scoreNumber) {
-        this.userName = userName;
+        this.userName = userName.toUpperCase();
         this.carBrand = carBrand;
         this.scoreNumber = scoreNumber;
     }
 
     public String getUserName() {
-        return userName;
+        return userName.substring(0, 1).toUpperCase() + userName.substring(1);
     }
 
     public void setUserName(String userName) {
-        this.userName = userName;
+        this.userName = userName.toUpperCase();
     }
 
     public String getCarBrand() {
