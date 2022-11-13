@@ -43,17 +43,17 @@ public class ScanController {
 
     @GetMapping("/scans/user/{userName}")
     public List<Scan> getScansByUserName(@PathVariable String userName){
-        return scanRepository.findScansByUserName(userName.toUpperCase() );
+        return scanRepository.findScansByUserName(userName.toLowerCase() );
     }
 
     @GetMapping("/scans/{carBrand}")
     public List<Scan> getScansByCarBrand(@PathVariable String carBrand){
-        return scanRepository.findScansByCarBrand(carBrand);
+        return scanRepository.findScansByCarBrand(carBrand.toLowerCase());
     }
 
     @GetMapping("/scans/user/{userName}/car/{carBrand}")
     public Scan getScanByUserNameAndCarBrand(@PathVariable String userName, @PathVariable String carBrand){
-        return scanRepository.findScanByUserNameAndAndCarBrand(userName.toUpperCase(), carBrand);
+        return scanRepository.findScanByUserNameAndAndCarBrand(userName.toLowerCase(), carBrand.toLowerCase());
     }
 
     @GetMapping("/scans")
@@ -65,7 +65,7 @@ public class ScanController {
     @ResponseBody
     public Scan addScan(@RequestBody ScanDto scanDto){
 
-        Scan newScan = new Scan(scanDto.getUserName().toUpperCase(),scanDto.getCarBrand(),scanDto.getScoreNumber());
+        Scan newScan = new Scan(scanDto.getUserName().toLowerCase(),scanDto.getCarBrand().toLowerCase(),scanDto.getScoreNumber());
 
         scanRepository.save(newScan);
         return newScan;
@@ -73,7 +73,7 @@ public class ScanController {
 
     @PutMapping("/scans")
     public Scan updateScan(@RequestBody ScanDto updatedScan){
-        Scan retrievedScan = scanRepository.findScanByUserNameAndAndCarBrand(updatedScan.getUserName().toUpperCase(),updatedScan.getCarBrand());
+        Scan retrievedScan = scanRepository.findScanByUserNameAndAndCarBrand(updatedScan.getUserName().toLowerCase(),updatedScan.getCarBrand().toLowerCase());
 
         retrievedScan.setCarBrand(updatedScan.getCarBrand());
         retrievedScan.setScoreNumber(updatedScan.getScoreNumber());
@@ -85,7 +85,7 @@ public class ScanController {
 
     @DeleteMapping("/scans/user/{userName}/car/{carBrand}")
     public <T> ResponseEntity<T> deleteScan(@PathVariable String userName, @PathVariable String carBrand){
-        Scan scan = scanRepository.findScanByUserNameAndAndCarBrand(userName.toUpperCase(), carBrand);
+        Scan scan = scanRepository.findScanByUserNameAndAndCarBrand(userName.toLowerCase(), carBrand.toLowerCase());
         if(scan!=null){
             scanRepository.delete(scan);
             return ResponseEntity.ok().build();

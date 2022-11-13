@@ -55,39 +55,39 @@ class ScanControllerIntegrationTests {
 
     @Test
     void givenScan_whenGetScansByUserName_thenReturnJsonScans() throws Exception {
-        mockMvc.perform(get("/scans/user/{userName}","Lode"))
+        mockMvc.perform(get("/scans/user/{userName}","lode"))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].userName",is("Lode")))
-                .andExpect(jsonPath("$[0].carBrand",is("Traktor")))
+                .andExpect(jsonPath("$[0].userName",is("lode")))
+                .andExpect(jsonPath("$[0].carBrand",is("traktor")))
                 .andExpect(jsonPath("$[0].scoreNumber",is(1)))
-                .andExpect(jsonPath("$[1].userName",is("Lode")))
-                .andExpect(jsonPath("$[1].carBrand",is("Tesla")))
+                .andExpect(jsonPath("$[1].userName",is("lode")))
+                .andExpect(jsonPath("$[1].carBrand",is("tesla")))
                 .andExpect(jsonPath("$[1].scoreNumber",is(2)));
     }
 
     @Test
     void givenScan_whenGetScansByCarBrand_thenReturnJsonScans() throws Exception {
-        mockMvc.perform(get("/scans/{carBrand}","Tesla"))
+        mockMvc.perform(get("/scans/{carBrand}","tesla"))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].userName",is("Lode")))
-                .andExpect(jsonPath("$[0].carBrand",is("Tesla")))
+                .andExpect(jsonPath("$[0].userName",is("lode")))
+                .andExpect(jsonPath("$[0].carBrand",is("tesla")))
                 .andExpect(jsonPath("$[0].scoreNumber",is(2)))
-                .andExpect(jsonPath("$[1].userName",is("Michiel")))
-                .andExpect(jsonPath("$[1].carBrand",is("Tesla")))
+                .andExpect(jsonPath("$[1].userName",is("michiel")))
+                .andExpect(jsonPath("$[1].carBrand",is("tesla")))
                 .andExpect(jsonPath("$[1].scoreNumber",is(4)));
     }
 
     @Test
     void givenScan_whenGetScanByUserNameAndCarBrand_thenReturnJsonScan() throws Exception {
-        mockMvc.perform(get("/scans/user/{userName}/car/{carBrand}","Lode","Tesla"))
+        mockMvc.perform(get("/scans/user/{userName}/car/{carBrand}","lode","tesla"))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.userName",is("Lode")))
-                .andExpect(jsonPath("$.carBrand",is("Tesla")))
+                .andExpect(jsonPath("$.userName",is("lode")))
+                .andExpect(jsonPath("$.carBrand",is("tesla")))
                 .andExpect(jsonPath("$.scoreNumber",is(2)));
     }
 
@@ -97,17 +97,17 @@ class ScanControllerIntegrationTests {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(4)))
-                .andExpect(jsonPath("$[0].userName",is("Lode")))
-                .andExpect(jsonPath("$[0].carBrand",is("Traktor")))
+                .andExpect(jsonPath("$[0].userName",is("lode")))
+                .andExpect(jsonPath("$[0].carBrand",is("traktor")))
                 .andExpect(jsonPath("$[0].scoreNumber",is(1)))
-                .andExpect(jsonPath("$[1].userName",is("Lode")))
-                .andExpect(jsonPath("$[1].carBrand",is("Tesla")))
+                .andExpect(jsonPath("$[1].userName",is("lode")))
+                .andExpect(jsonPath("$[1].carBrand",is("tesla")))
                 .andExpect(jsonPath("$[1].scoreNumber",is(2)))
-                .andExpect(jsonPath("$[2].userName",is("Johnny")))
-                .andExpect(jsonPath("$[2].carBrand",is("Traktor")))
+                .andExpect(jsonPath("$[2].userName",is("johnny")))
+                .andExpect(jsonPath("$[2].carBrand",is("traktor")))
                 .andExpect(jsonPath("$[2].scoreNumber",is(3)))
-                .andExpect(jsonPath("$[3].userName",is("Michiel")))
-                .andExpect(jsonPath("$[3].carBrand",is("Tesla")))
+                .andExpect(jsonPath("$[3].userName",is("michiel")))
+                .andExpect(jsonPath("$[3].carBrand",is("tesla")))
                 .andExpect(jsonPath("$[3].scoreNumber",is(4)));
     }
 
@@ -119,8 +119,8 @@ class ScanControllerIntegrationTests {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.userName",is("Lode")))
-                .andExpect(jsonPath("$.carBrand",is("Traktor")))
+                .andExpect(jsonPath("$.userName",is("lode")))
+                .andExpect(jsonPath("$.carBrand",is("traktor")))
                 .andExpect(jsonPath("$.scoreNumber",is(1)));
     }
 
@@ -133,21 +133,21 @@ class ScanControllerIntegrationTests {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.userName",is("Lode")))
-                .andExpect(jsonPath("$.carBrand",is("Traktor")))
+                .andExpect(jsonPath("$.userName",is("lode")))
+                .andExpect(jsonPath("$.carBrand",is("traktor")))
                 .andExpect(jsonPath("$.scoreNumber",is(2)));
     }
 
     @Test
     void givenScan_whenDeleteScan_thenStatusOk() throws Exception{
-        mockMvc.perform(delete("/scans/user/{userName}/car/{carBrand}","Michiel","Tesla")
+        mockMvc.perform(delete("/scans/user/{userName}/car/{carBrand}","michiel","tesla")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
     @Test
     void givenNoScan_whenDeleteScan_thenStatusNotFound() throws Exception{
-        mockMvc.perform(delete("/scans/user/{userName}/car/{carBrand}","Michiel","Volvo")
+        mockMvc.perform(delete("/scans/user/{userName}/car/{carBrand}","michiel","volvo")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
@@ -164,8 +164,8 @@ class ScanControllerIntegrationTests {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.userName",is("Johnny")))
-                .andExpect(jsonPath("$.carBrand",is("Traktor")))
+                .andExpect(jsonPath("$.userName",is("johnny")))
+                .andExpect(jsonPath("$.carBrand",is("traktor")))
                 .andExpect(jsonPath("$.scoreNumber",is(1)));
     }
 

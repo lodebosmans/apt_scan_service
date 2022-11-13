@@ -41,17 +41,17 @@ class ScanControllerUnitTests {
         scanList.add(scanUser1Car1);
         scanList.add(scanUser1Car2);
 
-        given(scanRepository.findScansByUserName("LODE")).willReturn(scanList);
+        given(scanRepository.findScansByUserName("lode")).willReturn(scanList);
 
-        mockMvc.perform(get("/scans/user/{userName}","Lode"))
+        mockMvc.perform(get("/scans/user/{userName}","lode"))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].userName",is("Lode")))
-                .andExpect(jsonPath("$[0].carBrand",is("Audi")))
+                .andExpect(jsonPath("$[0].userName",is("lode")))
+                .andExpect(jsonPath("$[0].carBrand",is("audi")))
                 .andExpect(jsonPath("$[0].scoreNumber",is(5)))
-                .andExpect(jsonPath("$[1].userName",is("Lode")))
-                .andExpect(jsonPath("$[1].carBrand",is("Tesla")))
+                .andExpect(jsonPath("$[1].userName",is("lode")))
+                .andExpect(jsonPath("$[1].carBrand",is("tesla")))
                 .andExpect(jsonPath("$[1].scoreNumber",is(3)));
     }
 
@@ -64,17 +64,17 @@ class ScanControllerUnitTests {
         scanList.add(scanUser1Car1);
         scanList.add(scanUser1Car2);
 
-        given(scanRepository.findScansByCarBrand("Tesla")).willReturn(scanList);
+        given(scanRepository.findScansByCarBrand("tesla")).willReturn(scanList);
 
-        mockMvc.perform(get("/scans/{carBrand}","Tesla"))
+        mockMvc.perform(get("/scans/{carBrand}","tesla"))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].userName",is("Lode")))
-                .andExpect(jsonPath("$[0].carBrand",is("Tesla")))
+                .andExpect(jsonPath("$[0].userName",is("lode")))
+                .andExpect(jsonPath("$[0].carBrand",is("tesla")))
                 .andExpect(jsonPath("$[0].scoreNumber",is(5)))
-                .andExpect(jsonPath("$[1].userName",is("Johnny")))
-                .andExpect(jsonPath("$[1].carBrand",is("Tesla")))
+                .andExpect(jsonPath("$[1].userName",is("johnny")))
+                .andExpect(jsonPath("$[1].carBrand",is("tesla")))
                 .andExpect(jsonPath("$[1].scoreNumber",is(3)));
     }
 
@@ -82,13 +82,13 @@ class ScanControllerUnitTests {
     void givenScan_whenGetScanByUserNameAndCarBrand_thenReturnJsonScan() throws Exception {
         Scan scanUser1Car1 = new Scan("Lode","Tesla",3);
 
-        given(scanRepository.findScanByUserNameAndAndCarBrand("LODE","Tesla")).willReturn(scanUser1Car1);
+        given(scanRepository.findScanByUserNameAndAndCarBrand("lode","tesla")).willReturn(scanUser1Car1);
 
-        mockMvc.perform(get("/scans/user/{userName}/car/{carBrand}","Lode","Tesla"))
+        mockMvc.perform(get("/scans/user/{userName}/car/{carBrand}","lode","tesla"))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.userName",is("Lode")))
-                .andExpect(jsonPath("$.carBrand",is("Tesla")))
+                .andExpect(jsonPath("$.userName",is("lode")))
+                .andExpect(jsonPath("$.carBrand",is("tesla")))
                 .andExpect(jsonPath("$.scoreNumber",is(3)));
     }
 
@@ -107,11 +107,11 @@ class ScanControllerUnitTests {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].userName",is("Lode")))
-                .andExpect(jsonPath("$[0].carBrand",is("Tesla")))
+                .andExpect(jsonPath("$[0].userName",is("lode")))
+                .andExpect(jsonPath("$[0].carBrand",is("tesla")))
                 .andExpect(jsonPath("$[0].scoreNumber",is(5)))
-                .andExpect(jsonPath("$[1].userName",is("Johnny")))
-                .andExpect(jsonPath("$[1].carBrand",is("Tesla")))
+                .andExpect(jsonPath("$[1].userName",is("johnny")))
+                .andExpect(jsonPath("$[1].carBrand",is("tesla")))
                 .andExpect(jsonPath("$[1].scoreNumber",is(3)));
     }
 
@@ -119,15 +119,15 @@ class ScanControllerUnitTests {
 
     @Test
     void whenPostScan_thenReturnJsonScan() throws Exception{
-        Scan ScanUser3Car1 = new Scan("MICHAEL","Audi",4);
+        Scan ScanUser3Car1 = new Scan("Michael","Audi",4);
 
         mockMvc.perform(post("/scans")
                         .content(mapper.writeValueAsString(ScanUser3Car1))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.userName",is("Michael")))
-                .andExpect(jsonPath("$.carBrand",is("Audi")))
+                .andExpect(jsonPath("$.userName",is("michael")))
+                .andExpect(jsonPath("$.carBrand",is("audi")))
                 .andExpect(jsonPath("$.scoreNumber",is(4)));
     }
 
@@ -135,7 +135,7 @@ class ScanControllerUnitTests {
     void givenScan_whenPutScan_thenReturnJsonScan() throws Exception{
         Scan ScanUser3Car1 = new Scan("Michael","Audi",4);
 
-        given(scanRepository.findScanByUserNameAndAndCarBrand("MICHAEL","Audi")).willReturn(ScanUser3Car1);
+        given(scanRepository.findScanByUserNameAndAndCarBrand("michael","audi")).willReturn(ScanUser3Car1);
 
         Scan updatedReview = new Scan("Michael","Audi",5);
 
@@ -144,8 +144,8 @@ class ScanControllerUnitTests {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.userName",is("Michael")))
-                .andExpect(jsonPath("$.carBrand",is("Audi")))
+                .andExpect(jsonPath("$.userName",is("michael")))
+                .andExpect(jsonPath("$.carBrand",is("audi")))
                 .andExpect(jsonPath("$.scoreNumber",is(5)));
     }
 
@@ -153,18 +153,18 @@ class ScanControllerUnitTests {
     void givenScan_whenDeleteScan_thenStatusOk() throws Exception{
         Scan ScanUser3Car1 = new Scan("Michael","Audi",4);
 
-        given(scanRepository.findScanByUserNameAndAndCarBrand("MICHAEL","Audi")).willReturn(ScanUser3Car1);
+        given(scanRepository.findScanByUserNameAndAndCarBrand("michael","audi")).willReturn(ScanUser3Car1);
 
-        mockMvc.perform(delete("/scans/user/{userName}/car/{carBrand}","Michael","Audi")
+        mockMvc.perform(delete("/scans/user/{userName}/car/{carBrand}","michael","audi")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
     @Test
     void givenNoScan_whenDeleteScan_thenStatusNotFound() throws Exception{
-        given(scanRepository.findScanByUserNameAndAndCarBrand("LODE","Volvo")).willReturn(null);
+        given(scanRepository.findScanByUserNameAndAndCarBrand("lode","volvo")).willReturn(null);
 
-        mockMvc.perform(delete("/scans/user/{userName}/car/{carBrand}","Lode","Volvo")
+        mockMvc.perform(delete("/scans/user/{userName}/car/{carBrand}","lode","volvo")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
@@ -177,7 +177,7 @@ class ScanControllerUnitTests {
         newScan.setCarBrand("Audi");
         newScan.setScoreNumber(4);
 
-        given(scanRepository.findScanByUserNameAndAndCarBrand("MICHAEL","Audi")).willReturn(newScan);
+        given(scanRepository.findScanByUserNameAndAndCarBrand("michael","audi")).willReturn(newScan);
 
         Scan updatedReview = new Scan("Michael","Audi",5);
 
@@ -186,8 +186,8 @@ class ScanControllerUnitTests {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.userName",is("Michael")))
-                .andExpect(jsonPath("$.carBrand",is("Audi")))
+                .andExpect(jsonPath("$.userName",is("michael")))
+                .andExpect(jsonPath("$.carBrand",is("audi")))
                 .andExpect(jsonPath("$.scoreNumber",is(5)));
     }
 }

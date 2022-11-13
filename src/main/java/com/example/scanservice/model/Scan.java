@@ -15,18 +15,18 @@ public class Scan {
     }
 
     public Scan(String userName, String carBrand, Integer scoreNumber) {
-        this.userName = userName.toUpperCase();
-        this.carBrand = carBrand;
+        this.userName = userName.toLowerCase();
+        this.carBrand = carBrand.toLowerCase();
         this.scoreNumber = scoreNumber;
     }
 
     public String getUserName() {
-//        return userName.substring(0, 1).toUpperCase() + userName.substring(1).toLowerCase;
+//        return userName.substring(0, 1).toLowerCase() + userName.substring(1).toLowerCase;
         return userName;
     }
 
     public void setUserName(String userName) {
-        this.userName = userName.toUpperCase();
+        this.userName = userName.toLowerCase();
     }
 
     public String getCarBrand() {
@@ -34,7 +34,7 @@ public class Scan {
     }
 
     public void setCarBrand(String carBrand) {
-        this.carBrand = carBrand;
+        this.carBrand = carBrand.toLowerCase();
     }
 
     public Integer getScoreNumber() {
