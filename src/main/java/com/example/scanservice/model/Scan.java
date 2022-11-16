@@ -21,7 +21,6 @@ public class Scan {
     }
 
     public String getUserName() {
-//        return userName.substring(0, 1).toLowerCase() + userName.substring(1).toLowerCase;
         return userName;
     }
 
